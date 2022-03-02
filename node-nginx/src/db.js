@@ -17,7 +17,7 @@ const createAndPopupate = () => {
     console.log("Table created.");
   });
 
-  const populate = `INSERT INTO people(name) VALUES ("João"), ("José"), ("Maria"), ("Sara");`;
+  const populate = `INSERT INTO people(name) VALUES ("João"), ("José"), ("Maria"), ("Sara"), ("Carlos"), ("Manuel"), ("Emilia"), ("Aline");`;
   db.query(populate, (err, result) => {
     if (err) throw err;
     console.log("Insert successful.");
