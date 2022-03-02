@@ -17,6 +17,9 @@ services:
     ports:
       - "80:80"
     restart: always
+    depends_on:
+      - node-app
+      - db
 
   node-app:
     container_name: node-app
