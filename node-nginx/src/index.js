@@ -1,5 +1,5 @@
 const express = require("express");
-const { db } = require("./db");
+const { db, createAndPopupate } = require("./db");
 
 const app = express();
 
@@ -7,17 +7,15 @@ app.use(express.json());
 
 db.connect((err) => {
   if (err) throw err;
-  const sql =
-    "CREATE TABLE IF NOT EXISTS people (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255));";
-  db.query(sql, (err, result) => {
-    if (err) throw err;
-    console.log("Table created.");
-  });
+  createAndPopupate();
 });
 
 app.get("/", (request, response) => {
-  const title = "<h1>Full Cycle Rocks!</h1>";
-  response.send(title);
+  db.query("SELECT * FROM people", (err, result) => {
+    if (err) throw err;
+    const test = result.map((elem) => `<span> ${elem.name}</span>`);
+    return response.send("<h1>Full Cycle Rocks!</h1>" + test);
+  });
 });
 
 app.listen(3000, () => console.log("Server is running on port 3000."));
