@@ -8,7 +8,14 @@ networks:
     driver: bridge
 
 services:
-  # nginx:
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+    networks:
+      - node_nginx
+    ports:
+      - "80:80"
   node-app:
     container_name: node-app
     build: .
