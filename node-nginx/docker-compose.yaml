@@ -1,0 +1,31 @@
+version: "3.8"
+
+volumes:
+  mysql_vol:
+
+networks:
+  node_nginx:
+    driver: bridge
+
+services:
+  # nginx:
+  node-app:
+    container_name: node-app
+    build: .
+    networks:
+      - node_nginx
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+
+  db:
+    container_name: mysql
+    image: mysql:5.7
+    networks:
+      - node_nginx
+    volumes:
+      - mysql_vol:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=fullcycle
+      - MYSQL_ROOT_PASSWORD=root
